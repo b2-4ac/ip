@@ -15,8 +15,12 @@ public class Epsilon {
                 System.out.println("No Input Detected :(");
 
             } else if (cmd.equals("list")) {
-                for (int i = 0; i < list.size(); i++) {
-                    System.out.println((i + 1) + ". " + list.get(i));
+                if (list.size() == 0) {
+                    System.out.println("No tasks yet.");
+                } else {
+                    for (int i = 0; i < list.size(); i++) {
+                        System.out.println((i + 1) + ". " + list.get(i));
+                    }
                 }
 
             } else if (cmd.split(" ")[0].equals("mark")) {
