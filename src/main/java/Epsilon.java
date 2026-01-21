@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.lang.StringBuilder;
 
 public class Epsilon {
     public static void main(String[] args) {
@@ -149,6 +148,8 @@ public class Epsilon {
             System.out.println("____________________________________________________________");
             cmd = sc.nextLine();
         }
+
+        sc.close();
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
