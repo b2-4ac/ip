@@ -1,6 +1,6 @@
 public class Todo extends Task {
 
-    public Todo(String title) {
+    public Todo(String title) throws MissingInputException {
         super(title);
     }
 

@@ -21,115 +21,130 @@ public class Epsilon {
                 }
 
             } else if (cmd.split(" ")[0].equals("mark")) {
-                list.get(Integer.parseInt(cmd.split(" ")[1]) - 1).mark();
+                int in = Integer.parseInt(cmd.split(" ")[1]) - 1;
+                if (in >= list.size()) {
+                    System.out.println("Task not found :(");
+                    System.out.println("____________________________________________________________");
+                    cmd = sc.nextLine();
+                    continue;
+                }
+                list.get(in).mark();
                 System.out.println("Task marked as completed. Good Job!");
 
             } else if (cmd.split(" ")[0].equals("unmark")) {
-                list.get(Integer.parseInt(cmd.split(" ")[1]) - 1).unmark();
+                int in = Integer.parseInt(cmd.split(" ")[1]) - 1;
+                if (in >= list.size()) {
+                    System.out.println("Task not found :(");
+                    System.out.println("____________________________________________________________");
+                    cmd = sc.nextLine();
+                    continue;
+                }
+                list.get(in).unmark();
                 System.out.println("Task has been reset. Get it done soon!");
 
             } else {
-                StringBuilder titleBuilder = new StringBuilder();
-                String[] cmdSplit = cmd.split(" ");
-                String type = cmdSplit[0];
-                String title = "";
+                int indexOfSpace = cmd.indexOf(' ');
+                if (indexOfSpace == -1) {
+                    System.out.println("Unrecognised Command :( Please try again.");
+                    System.out.println("____________________________________________________________");
+                    cmd = sc.nextLine();
+                    continue;
+                }
+                String type = cmd.substring(0, indexOfSpace);
+                String input = cmd.substring(indexOfSpace + 1);
                 if (type.equals("todo")) {
-                    for (int i = 1; i < cmdSplit.length; i++) {
-                        titleBuilder.append(cmdSplit[i] + " ");
+                    try {
+                        String title = input;
+                        Todo newTodo = new Todo(title);
+                        list.add(newTodo);
+                        System.out.println("Added new To Do: " + title);
+                    } catch (MissingInputException e) {
+                        System.out.println("No Title Detected :(");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
                     }
-                    title = titleBuilder.toString();
-                    Todo newTodo = new Todo(title);
-                    list.add(newTodo);
 
                 } else if (type.equals("deadline")) {
-                    boolean hasDeadline = false;
-                    int i = 1;
-                    while (i < cmdSplit.length) {
-                        if (cmdSplit[i].equals("/by")) {
-                            title = titleBuilder.toString();
-                            hasDeadline = true;
-                            break;
-                        } else {
-                            titleBuilder.append(cmdSplit[i] + " ");
-                        }
-                        i++;
+                    if (!input.contains("/by")) {
+                        System.out.println("No deadline detected :( Use /by to indicate a deadline");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
                     }
-                    String deadline = "";
-                    if (hasDeadline) {
-                        StringBuilder deadlineBuilder = new StringBuilder();
-                        i++;
-                        while (i < cmdSplit.length) {
-                            deadlineBuilder.append(cmdSplit[i] + " ");
-                            i++;
-                        }
-                        deadline = deadlineBuilder.toString();
+                    String[] splitInput = input.split("/by");
+                    if (splitInput.length == 1) {
+                        System.out.println("No deadline detected :( Please try again.");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    }
+                    String title = splitInput[0];
+                    String deadline = splitInput[1];
+
+                    try {
                         Deadline newDeadline = new Deadline(title, deadline);
                         list.add(newDeadline);
-                    } else {
-                        System.out.println("No deadline detected :(. Use /by to indicate a deadline");
+                        System.out.println("Added new Deadline: " + title);
+                    } catch (MissingInputException e) {
+                        System.out.println("Oops! Some information is missing :(");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    } 
+
+                } else if (type.equals("event")) {
+                    if (!input.contains("/from")) {
+                        System.out.println("Missing start date :( Use /from to indicate a start");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    }
+
+                    String[] splitInput = input.split("/from");
+                    if (splitInput.length == 1) {
+                        System.out.println("Missing start date :( Use /from to indicate a start");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    }
+
+                    String title = splitInput[0];
+                    String second = splitInput[1];
+                    if (!second.contains("/to")) {
+                        System.out.println("Missing end date :( Use /to to indicate an end");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    }
+
+                    String[] splitSecond = second.split("to");
+                    if (splitSecond.length == 1) {
+                        System.out.println("Missing end date :( Use /to to indicate an end");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    }
+                    String start = splitSecond[0];
+                    String end = splitSecond[1];
+
+                    try {
+                        Event newEvent = new Event(title, start, end);
+                        list.add(newEvent);
+                        System.out.println("Added new Event: " + title);
+                    } catch (MissingInputException e) {
+                        System.out.println("Oops! Some information is missing :(");
                         System.out.println("____________________________________________________________");
                         cmd = sc.nextLine();
                         continue;
                     }
                     
-                } else if (type.equals("event")) {
-                    boolean hasStart = false;
-                    boolean hasEnd = false;
-                    int i = 1;
-                    title = "";
-                    while (i < cmdSplit.length) {
-                        if (cmdSplit[i].equals("/from")) {
-                            title = titleBuilder.toString();
-                            hasStart = true;
-                            break;
-                        } else {
-                            titleBuilder.append(cmdSplit[i] + " ");
-                        }
-                        i++;
-                    }
-                    String start = "";
-                    String end = "";
-                    if (hasStart) {
-                        StringBuilder startBuilder = new StringBuilder();
-                        i++;
-                        while (i < cmdSplit.length) {
-                            if (cmdSplit[i].equals("/to")) {
-                                hasEnd = true;
-                                break;
-                            }
-                            startBuilder.append(cmdSplit[i] + " ");
-                            i++;
-                        }
-                        start = startBuilder.toString();
-                        if (hasEnd) {
-                            StringBuilder endBuilder = new StringBuilder();
-                            i++;
-                            while (i < cmdSplit.length) {
-                                endBuilder.append(cmdSplit[i] + " ");
-                                i++;
-                            }
-                            end = endBuilder.toString();
-                        } else {
-                            System.out.println("No end date detected :(. Use /to to indicate a deadline");
-                            System.out.println("____________________________________________________________");
-                            cmd = sc.nextLine();
-                            continue;
-                        }
-                    } else {
-                        System.out.println("No start date detected :(. Use /from to indicate a deadline");
-                        System.out.println("____________________________________________________________");
-                        cmd = sc.nextLine();
-                        continue;
-                    }
-                    Event newEvent = new Event(title, start, end);
-                    list.add(newEvent);
                 } else {
-                    System.out.println("Unrecognised Command :(. Please try again.");
+                    System.out.println("Unrecognised Command :( Please try again.");
                     System.out.println("____________________________________________________________");
                     cmd = sc.nextLine();
                     continue;
                 }
-                System.out.println("Added new " + type + ": " + title);
             }
             System.out.println("____________________________________________________________");
             cmd = sc.nextLine();

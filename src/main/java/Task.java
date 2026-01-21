@@ -2,8 +2,11 @@ public abstract class Task {
     private String title;
     private boolean isCompleted;
 
-    public Task(String title) {
-        this.title = title;
+    public Task(String title) throws MissingInputException {
+        if (title.trim().equals("")) {
+            throw new MissingInputException();
+        }
+        this.title = title.trim();
         this.isCompleted = false;
     }
 
