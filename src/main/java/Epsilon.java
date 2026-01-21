@@ -41,6 +41,16 @@ public class Epsilon {
                 list.get(in).unmark();
                 System.out.println("Task has been reset. Get it done soon!");
 
+            } else if (cmd.split(" ")[0].equals("delete")) {
+                int in = Integer.parseInt(cmd.split(" ")[1]) - 1;
+                if (in >= list.size()) {
+                    System.out.println("Task not found :(");
+                    System.out.println("____________________________________________________________");
+                    cmd = sc.nextLine();
+                    continue;
+                }
+                list.remove(in);
+                System.out.println("Task removed successfully.");
             } else {
                 int indexOfSpace = cmd.indexOf(' ');
                 if (indexOfSpace == -1) {
