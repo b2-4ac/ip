@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Epsilon {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<Task> list = new ArrayList<>();
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Epsilon\nWhat can I do for you?");
         System.out.println("____________________________________________________________");
@@ -20,8 +20,19 @@ public class Epsilon {
                     System.out.println((i + 1) + ". " + list.get(i));
                 }
                 System.out.println("____________________________________________________________");
+            } else if (cmd.split(" ")[0].equals("mark")) {
+                list.get(Integer.parseInt(cmd.split(" ")[1]) - 1).mark();
+                System.out.println("____________________________________________________________");
+                System.out.println("Task marked as completed. Good Job!");
+                System.out.println("____________________________________________________________");
+            } else if (cmd.split(" ")[0].equals("unmark")) {
+                list.get(Integer.parseInt(cmd.split(" ")[1]) - 1).unmark();
+                System.out.println("____________________________________________________________");
+                System.out.println("Task has been reset. Get it done soon!");
+                System.out.println("____________________________________________________________");
             } else {
-                list.add(cmd);
+                Task newTask = new Task(cmd);
+                list.add(newTask);
                 System.out.println("____________________________________________________________");
                 System.out.println("added: " + cmd);
                 System.out.println("____________________________________________________________");
