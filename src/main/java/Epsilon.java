@@ -6,7 +6,7 @@ public class Epsilon {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> list = new ArrayList<>();
         System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm Epsilon\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Epsilon\nWhat can I do for you?");
         System.out.println("____________________________________________________________");
         String cmd = sc.nextLine();
         while (!cmd.equals("bye")) {
@@ -23,7 +23,7 @@ public class Epsilon {
             } else {
                 list.add(cmd);
                 System.out.println("____________________________________________________________");
-                System.out.println("added: " + cmd + "\n");
+                System.out.println("added: " + cmd);
                 System.out.println("____________________________________________________________");
             }
             cmd = sc.nextLine();
