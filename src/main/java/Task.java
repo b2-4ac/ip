@@ -7,8 +7,12 @@ public class Task {
         this.isCompleted = false;
     }
 
-    public void toggle() {
-        this.isCompleted = !this.isCompleted;
+    public void mark() {
+        this.isCompleted = true;
+    }
+
+    public void unmark() {
+        this.isCompleted = false;
     }
 
     @Override
