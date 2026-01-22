@@ -1,0 +1,19 @@
+todo homework
+todo
+blah
+deadline return book /by midnight
+deadline
+deadline buy food
+event 
+event party /from now
+event party /from now /to
+event party /from now /to later
+list
+mark 1
+mark 3
+mark 5
+list
+unmark 3
+unmark 9
+list
+bye
