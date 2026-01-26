@@ -16,5 +16,6 @@ bin/
 # Java class files
 *.class
 
+tasks.txt
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
