@@ -12,7 +12,17 @@ public class Event extends Task {
     }
 
     @Override
+    public String encode() {
+        if (super.getIsCompleted()) {
+            return "E | " + "1" + " | " + super.getTitle() + " | " + this.start + " | " + this.end;
+        } else {
+            return "E | " + "0" + " | " + super.getTitle() + " | " + this.start + " | " + this.end;
+        }
+    }
+
+
+    @Override
     public String toString() {
-        return "/E/" + super.toString() + "(from: " + start + " to: " + end + ")";
+        return "/E/" + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 }

@@ -10,6 +10,14 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
+    String getTitle() {
+        return this.title;
+    }
+
+    boolean getIsCompleted() {
+        return this.isCompleted;
+    }
+
     public void mark() {
         this.isCompleted = true;
     }
@@ -17,6 +25,8 @@ public abstract class Task {
     public void unmark() {
         this.isCompleted = false;
     }
+
+    abstract public String encode();
 
     @Override
     public String toString() {
