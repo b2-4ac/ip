@@ -1,10 +1,57 @@
 import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Epsilon {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
+        String LIST_DATA = "tasks.txt";
+        Path filePath = Paths.get(LIST_DATA);
+        try {
+            if (Files.notExists(filePath)) {
+                Files.createFile(filePath);
+            }
+            List<String> taskInput = Files.readAllLines(filePath);
+            for (String input : taskInput) {
+                String[] split = input.split("\\|");
+                if (split[0].trim().equals("T")) {
+                    String title = split[2];
+                    Todo newTodo = new Todo(title);
+                    if (split[1].trim().equals("1")) {
+                        newTodo.mark();
+                    }
+                    list.add(newTodo);
+                } else if (split[0].trim().equals("D")) {
+                    String title = split[2];
+                    String deadline = split[3];
+                    Deadline newDeadline = new Deadline(title, deadline);
+                    if (split[1].trim().equals("1")) {
+                        newDeadline.mark();
+                    }
+                    list.add(newDeadline);
+                } else if (split[0].trim().equals("E")) {
+                    String title = split[2];
+                    String start = split[3];
+                    String end = split[4];
+                    Event newEvent = new Event(title, start, end);
+                    if (split[1].trim().equals("1")) {
+                        newEvent.mark();
+                    }
+                    list.add(newEvent);
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("Something went wrong");
+            System.out.println(e.getMessage());
+        } catch (MissingInputException e) {
+            System.out.println("Error in Data: Missing Input");
+        }
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Epsilon\nWhat can I do for you?");
         System.out.println("____________________________________________________________");
@@ -182,6 +229,17 @@ public class Epsilon {
         }
 
         sc.close();
+
+        ArrayList<String> endWrite = new ArrayList<>();
+        for (Task task : list) {
+            endWrite.add(task.encode());
+        }
+        try {
+            Files.write(filePath, endWrite);
+        } catch (IOException e) {
+            System.out.println("Error saving work.");
+        }
+        
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println("____________________________________________________________");
