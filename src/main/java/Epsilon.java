@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 
 public class Epsilon {
     public static void main(String[] args) {
@@ -51,6 +52,8 @@ public class Epsilon {
             System.out.println(e.getMessage());
         } catch (MissingInputException e) {
             System.out.println("Error in Data: Missing Input");
+        } catch (DateTimeParseException e) {
+            System.out.println("Error in Data: Invalid Date");
         }
         System.out.println("____________________________________________________________");
         System.out.println("Hello! I'm Epsilon\nWhat can I do for you?");
@@ -169,7 +172,12 @@ public class Epsilon {
                         System.out.println("____________________________________________________________");
                         cmd = sc.nextLine();
                         continue;
-                    } 
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Please enter the deadline in a yyyy-mm-dd format");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    }
 
                 } else if (type.equals("event")) {
                     if (!input.contains("/from")) {
@@ -212,6 +220,11 @@ public class Epsilon {
                         System.out.println("Added new Event: " + title);
                     } catch (MissingInputException e) {
                         System.out.println("Oops! Some information is missing :(");
+                        System.out.println("____________________________________________________________");
+                        cmd = sc.nextLine();
+                        continue;
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Please enter the start and end dates in a yyyy-mm-dd format");
                         System.out.println("____________________________________________________________");
                         cmd = sc.nextLine();
                         continue;
