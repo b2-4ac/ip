@@ -10,7 +10,17 @@ public class Deadline extends Task{
     }
 
     @Override
+    public String encode() {
+        if (super.getIsCompleted()) {
+            return "D | " + "1" + " | " + super.getTitle() + " | " + this.deadline;
+        } else {
+            return "D | " + "0" + " | " + super.getTitle() + " | " + this.deadline;
+        }
+    }
+
+
+    @Override
     public String toString() {
-        return "/D/" + super.toString() + "(by: " + this.deadline + ")";
+        return "/D/" + super.toString() + " (by: " + this.deadline + ")";
     }
 }
