@@ -1,4 +1,7 @@
+package epsilon;
+
 import java.util.List;
+import epsilon.commands.Command;
 
 public class Epsilon {
     private Ui ui;

@@ -1,5 +1,8 @@
+package epsilon.tasks;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import epsilon.exceptions.MissingInputException;
 
 public class Event extends Task {
     private LocalDate start;

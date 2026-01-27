@@ -1,3 +1,5 @@
+package epsilon;
+
 import java.util.Scanner;
 
 public class Ui {

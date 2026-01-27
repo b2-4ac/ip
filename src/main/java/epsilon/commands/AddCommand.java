@@ -1,4 +1,9 @@
+package epsilon.commands;
+
 import java.util.ArrayList;
+import epsilon.Ui;
+import epsilon.Storage;
+import epsilon.TaskList;
 
 public class AddCommand extends Command {
     private String type;

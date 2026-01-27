@@ -1,3 +1,7 @@
+package epsilon.tasks;
+
+import epsilon.exceptions.MissingInputException;
+
 public class Todo extends Task {
 
     public Todo(String title) throws MissingInputException {

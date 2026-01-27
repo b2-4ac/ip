@@ -1,3 +1,7 @@
+package epsilon.tasks;
+
+import epsilon.exceptions.MissingInputException;
+
 public abstract class Task {
     private String title;
     private boolean isCompleted;
