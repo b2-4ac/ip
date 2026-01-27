@@ -1,6 +1,7 @@
 package epsilon;
 
 import java.util.List;
+
 import epsilon.commands.Command;
 
 public class Epsilon {
@@ -9,16 +10,16 @@ public class Epsilon {
     private Parser parser;
     private TaskList list;
 
-    public static void main(String[] args) {
-        new Epsilon("tasks.txt").run();
-    }
-
     public Epsilon(String listPath) {
         this.ui = new Ui();
         this.storage = new Storage(listPath);
         List<String> taskInput = storage.readTasks();
         this.list = new TaskList(taskInput);
         this.parser = new Parser();
+    }
+
+    public static void main(String[] args) {
+        new Epsilon("tasks.txt").run();
     }
 
     public void run() {

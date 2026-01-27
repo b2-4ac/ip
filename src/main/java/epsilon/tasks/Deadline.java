@@ -3,12 +3,13 @@ package epsilon.tasks;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import epsilon.exceptions.MissingInputException;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private LocalDate deadline;
 
-    public Deadline(String title, String deadline) throws MissingInputException, DateTimeParseException{
+    public Deadline(String title, String deadline) throws MissingInputException, DateTimeParseException {
         super(title);
         if (deadline.trim().equals("")) {
             throw new MissingInputException();
@@ -19,15 +20,18 @@ public class Deadline extends Task{
     @Override
     public String encode() {
         if (super.getIsCompleted()) {
-            return "D | " + "1" + " | " + super.getTitle() + " | " + this.deadline.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            return "D | " + "1" + " | " + super.getTitle() + " | "
+                + this.deadline.format(DateTimeFormatter.ISO_LOCAL_DATE);
         } else {
-            return "D | " + "0" + " | " + super.getTitle() + " | " + this.deadline.format(DateTimeFormatter.ISO_LOCAL_DATE);
+            return "D | " + "0" + " | " + super.getTitle() + " | "
+                + this.deadline.format(DateTimeFormatter.ISO_LOCAL_DATE);
         }
     }
 
 
     @Override
     public String toString() {
-        return "/D/" + super.toString() + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "/D/" + super.toString() + " (by: "
+            + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

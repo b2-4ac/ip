@@ -1,10 +1,15 @@
 package epsilon;
 
-import java.util.List;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import epsilon.tasks.*;
+import java.util.List;
+
 import epsilon.exceptions.MissingInputException;
+import epsilon.tasks.Deadline;
+import epsilon.tasks.Event;
+import epsilon.tasks.Task;
+import epsilon.tasks.Todo;
+
 
 public class TaskList {
     private ArrayList<Task> list;
@@ -67,7 +72,7 @@ public class TaskList {
             System.out.println("Task marked as completed. Good Job!");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Task not found in list :(");
-        }       
+        }
     }
 
     public void unmarkTask(int idx) {

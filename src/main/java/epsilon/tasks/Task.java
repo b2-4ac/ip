@@ -30,7 +30,7 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
-    abstract public String encode();
+    public abstract String encode();
 
     @Override
     public String toString() {

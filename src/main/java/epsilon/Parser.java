@@ -1,7 +1,15 @@
 package epsilon;
 
 import java.util.ArrayList;
-import epsilon.commands.*;
+
+import epsilon.commands.AddCommand;
+import epsilon.commands.Command;
+import epsilon.commands.DeleteCommand;
+import epsilon.commands.ErrorCommand;
+import epsilon.commands.ExitCommand;
+import epsilon.commands.ListCommand;
+import epsilon.commands.MarkCommand;
+import epsilon.commands.UnmarkCommand;
 
 public class Parser {
     public Command parse(String cmd) {

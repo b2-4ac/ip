@@ -1,8 +1,8 @@
 package epsilon.commands;
 
-import epsilon.Ui;
 import epsilon.Storage;
 import epsilon.TaskList;
+import epsilon.Ui;
 
 public class MarkCommand extends Command {
     private int index;
