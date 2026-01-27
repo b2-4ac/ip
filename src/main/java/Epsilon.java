@@ -204,7 +204,7 @@ public class Epsilon {
                         continue;
                     }
 
-                    String[] splitSecond = second.split("to");
+                    String[] splitSecond = second.split("/to");
                     if (splitSecond.length == 1) {
                         System.out.println("Missing end date :( Use /to to indicate an end");
                         System.out.println("____________________________________________________________");
