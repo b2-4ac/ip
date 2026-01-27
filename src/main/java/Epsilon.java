@@ -1,10 +1,6 @@
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 public class Epsilon {
@@ -12,12 +8,11 @@ public class Epsilon {
         Scanner sc = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
         String LIST_DATA = "tasks.txt";
-        Path filePath = Paths.get(LIST_DATA);
+
+        Storage storage = new Storage(LIST_DATA);
+        List<String> taskInput = storage.readTasks();
+
         try {
-            if (Files.notExists(filePath)) {
-                Files.createFile(filePath);
-            }
-            List<String> taskInput = Files.readAllLines(filePath);
             for (String input : taskInput) {
                 String[] split = input.split("\\|");
                 if (split[0].trim().equals("T")) {
@@ -46,10 +41,6 @@ public class Epsilon {
                     list.add(newEvent);
                 }
             }
-
-        } catch (IOException e) {
-            System.out.println("Something went wrong");
-            System.out.println(e.getMessage());
         } catch (MissingInputException e) {
             System.out.println("Error in Data: Missing Input");
         } catch (DateTimeParseException e) {
@@ -243,15 +234,7 @@ public class Epsilon {
 
         sc.close();
 
-        ArrayList<String> endWrite = new ArrayList<>();
-        for (Task task : list) {
-            endWrite.add(task.encode());
-        }
-        try {
-            Files.write(filePath, endWrite);
-        } catch (IOException e) {
-            System.out.println("Error saving work.");
-        }
+        storage.writeTasks(list);
         
         System.out.println("____________________________________________________________");
         System.out.println("Bye. Hope to see you again soon!");
