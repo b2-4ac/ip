@@ -9,7 +9,7 @@ public class Todo extends Task {
 
     /**
      * Passes the title into the Task constructor.
-     * 
+     *
      * @param title Title of Todo.
      * @throws MissingInputException Throws exception if the title is blank.
      */

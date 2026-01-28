@@ -19,9 +19,9 @@ import epsilon.commands.UnmarkCommand;
 public class Parser {
     /**
      * Returns the appropriate Command subtype (e.g. AddCommand, DeleteCommand etc.)
-     * to be executed based on the input given, usually provided by the user and read 
+     * to be executed based on the input given, usually provided by the user and read
      * using the Ui class.
-     * 
+     *
      * @param cmd An instruction in the form of a String.
      * @return The proper Command type with the appropriate parameters
      * for execution.

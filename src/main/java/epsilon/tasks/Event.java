@@ -16,7 +16,7 @@ public class Event extends Task {
     /**
      * Passes the title to the parent Task constructor. Checks if the start and end
      * parameters provided are present and parses them into LocalDate objects.
-     * 
+     *
      * @param title Title of event.
      * @param start Date of start of event in yyyy-mm-dd format.
      * @param end Date of end of event in yyyy-mm-dd format.

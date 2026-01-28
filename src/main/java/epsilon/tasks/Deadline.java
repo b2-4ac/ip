@@ -15,7 +15,7 @@ public class Deadline extends Task {
     /**
      * Passes the title to the parent Task constructor. Checks if the deadline
      * parameter provided is present and parses it into a LocalDate object.
-     * 
+     *
      * @param title Title of event.
      * @param deadline Date of deadline in yyyy-mm-dd format.
      * @throws MissingInputException Throws exception if title or deadline are blank.

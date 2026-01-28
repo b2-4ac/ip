@@ -19,7 +19,7 @@ public class Storage {
     /**
      * Takes in a file path in String representation and converts it into a Path
      * object to be used for read and write operations.
-     * 
+     *
      * @param pathString File path in String representation.
      */
     public Storage(String pathString) {
@@ -30,7 +30,7 @@ public class Storage {
      * Returns a List object with Strings as lines read from
      * the file path specified during this Storage object's
      * instantiation.
-     * 
+     *
      * @return List of lines of text as Strings.
      */
     public List<String> readTasks() {
@@ -51,7 +51,7 @@ public class Storage {
      * Converts a list of Task objects into a String representation
      * before storing them into the file path specified during this
      * Storage object's instantiation.
-     * 
+     *
      * @param taskList A List of Task objects to be converted into
      * Strings and written.
      */

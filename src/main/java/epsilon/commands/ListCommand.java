@@ -2,10 +2,10 @@ package epsilon.commands;
 
 import java.util.ArrayList;
 
-import epsilon.tasks.Task;
 import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
+import epsilon.tasks.Task;
 
 public class ListCommand extends Command {
     @Override
