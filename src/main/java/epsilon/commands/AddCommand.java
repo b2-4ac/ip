@@ -10,6 +10,15 @@ public class AddCommand extends Command {
     private String type;
     private ArrayList<String> params;
 
+    /**
+     * Called after the Parser has parsed user input and determined
+     * which type of Task is to be created. Along with a list of parameters
+     * provided by the user.
+     * 
+     * @param type Type of task to be created.
+     * @param params ArrayList of parameters provided by user input for Task object
+     * creation.
+     */
     public AddCommand(String type, ArrayList<String> params) {
         this.type = type;
         this.params = params;

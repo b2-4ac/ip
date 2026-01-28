@@ -6,9 +6,21 @@ import java.time.format.DateTimeParseException;
 
 import epsilon.exceptions.MissingInputException;
 
+/**
+ * Represents a Task with a deadline.
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
 
+    /**
+     * Passes the title to the parent Task constructor. Checks if the deadline
+     * parameter provided is present and parses it into a LocalDate object.
+     * 
+     * @param title Title of event.
+     * @param deadline Date of deadline in yyyy-mm-dd format.
+     * @throws MissingInputException Throws exception if title or deadline are blank.
+     * @throws DateTimeParseException Throws exception if deadline is in the wrong format.
+     */
     public Deadline(String title, String deadline) throws MissingInputException, DateTimeParseException {
         super(title);
         if (deadline.trim().equals("")) {

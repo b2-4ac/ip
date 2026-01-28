@@ -10,10 +10,19 @@ import epsilon.tasks.Event;
 import epsilon.tasks.Task;
 import epsilon.tasks.Todo;
 
-
+/**
+ * Represents an ArrayList of Task objects along with various 
+ * operations that can be performed on the list (e.g. Adding Tasks)
+ */
 public class TaskList {
     private ArrayList<Task> list;
 
+    /**
+     * Takes in a list of Strings as input and converts each line into a
+     * Task object that is stored in its own ArrayList<Task> object.
+     * 
+     * @param input List of Strings, typically read from a local .txt file.
+     */
     public TaskList(List<String> input) {
         this.list = new ArrayList<>();
         try {
@@ -52,10 +61,19 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the ArrayList object being enapsulated by the TaskList.
+     * 
+     * @return Java ArrayList<Task> object.
+     */
     public ArrayList<Task> getRawList() {
         return this.list;
     }
 
+    /**
+     * Prints the entire list of stored tasks to the console in String
+     * representation.
+     */
     public void printList() {
         if (this.list.size() == 0) {
             System.out.println("No tasks yet.");
@@ -66,6 +84,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Takes in an index, usually supplied by an end user, and marks the
+     * task specified at that index as complete.
+     * 
+     * @param idx Integer index indicating which task to mark as complete.
+     */
     public void markTask(int idx) {
         try {
             this.list.get(idx).mark();
@@ -75,6 +99,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Takes in an index, usually supplied by an end user, and marks the
+     * task specified at that index as incomplete.
+     * 
+     * @param idx Integer index indicating which task to mark as incomplete
+     */
     public void unmarkTask(int idx) {
         try {
             this.list.get(idx).unmark();
@@ -84,6 +114,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Takes in an index, usually supplied by an end user, and removes the
+     * task specified at that index as incomplete.
+     * 
+     * @param idx Integer index indicating which task to delete.
+     */
     public void deleteTask(int idx) {
         try {
             this.list.remove(idx);
@@ -93,6 +129,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Overloaded addTask method which changes the type of Task object
+     * to be created based on the number of parameters provided to the
+     * method. One parameter creates a Todo. Two parameters create a Deadline.
+     * Three parameters create an Event.
+     * 
+     * @param title Title of the Todo task.
+     */
     public void addTask(String title) {
         try {
             Todo newTask = new Todo(title);
@@ -103,6 +147,16 @@ public class TaskList {
         }
     }
 
+     /**
+     * Overloaded addTask method which changes the type of Task object
+     * to be created based on the number of parameters provided to the
+     * method. One parameter creates a Todo. Two parameters create a Deadline.
+     * Three parameters create an Event.
+     * 
+     * @param title Title of the Deadline task.
+     * @param deadline String representation of the date of the deadline in yyyy-mm-dd
+     * format.
+     */
     public void addTask(String title, String deadline) {
         try {
             Deadline newTask = new Deadline(title, deadline);
@@ -115,6 +169,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Overloaded addTask method which changes the type of Task object
+     * to be created based on the number of parameters provided to the
+     * method. One parameter creates a Todo. Two parameters create a Deadline.
+     * Three parameters create an Event.
+     * 
+     * @param title Title of the Deadline task.
+     * @param start String representation of the date of the start of the event
+     * in yyyy-mm-dd format.
+     * @param end String representation of the date of the start of the event
+     * in yyyy-mm-dd format.
+     */
     public void addTask(String title, String start, String end) {
         try {
             Event newTask = new Event(title, start, end);
