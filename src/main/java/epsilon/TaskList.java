@@ -10,7 +10,6 @@ import epsilon.tasks.Event;
 import epsilon.tasks.Task;
 import epsilon.tasks.Todo;
 
-
 public class TaskList {
     private ArrayList<Task> list;
 
