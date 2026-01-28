@@ -11,7 +11,20 @@ import epsilon.commands.ListCommand;
 import epsilon.commands.MarkCommand;
 import epsilon.commands.UnmarkCommand;
 
+/**
+ * An object used for interpreting and parsing user input into
+ * the appropriate commands to execute
+ */
 public class Parser {
+    /**
+     * Returns the appropriate Command subtype (e.g. AddCommand, DeleteCommand etc.)
+     * to be executed based on the input given, usually provided by the user and read 
+     * using the Ui class.
+     * 
+     * @param cmd An instruction in the form of a String.
+     * @return The proper Command type with the appropriate parameters
+     * for execution.
+     */
     public Command parse(String cmd) {
         String[] cmdSplit = cmd.split(" ");
         String inst = cmdSplit[0];
