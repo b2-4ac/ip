@@ -56,16 +56,6 @@ public class TaskList {
         return this.list;
     }
 
-    public void printList() {
-        if (this.list.size() == 0) {
-            System.out.println("No tasks yet.");
-        } else {
-            for (int i = 0; i < this.list.size(); i++) {
-                System.out.println((i + 1) + ". " + list.get(i));
-            }
-        }
-    }
-
     public void markTask(int idx) {
         try {
             this.list.get(idx).mark();
@@ -125,5 +115,15 @@ public class TaskList {
         } catch (DateTimeParseException e) {
             System.out.println("Please enter the deadline in a yyyy-mm-dd format");
         }
+    }
+
+    public ArrayList<Task> findTasks(String searchString) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task task : list) {
+            if (task.getTitle().contains(searchString)) {
+                res.add(task);
+            }
+        }
+        return res;
     }
 }

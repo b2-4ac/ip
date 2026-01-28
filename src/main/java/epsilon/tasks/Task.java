@@ -14,7 +14,7 @@ public abstract class Task {
         this.isCompleted = false;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return this.title;
     }
 

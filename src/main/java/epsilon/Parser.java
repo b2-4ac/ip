@@ -7,6 +7,7 @@ import epsilon.commands.Command;
 import epsilon.commands.DeleteCommand;
 import epsilon.commands.ErrorCommand;
 import epsilon.commands.ExitCommand;
+import epsilon.commands.FindCommand;
 import epsilon.commands.ListCommand;
 import epsilon.commands.MarkCommand;
 import epsilon.commands.UnmarkCommand;
@@ -17,7 +18,7 @@ public class Parser {
         String inst = cmdSplit[0];
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i < cmdSplit.length; i++) {
-            sb.append(cmdSplit[i]);
+            sb.append(cmdSplit[i] + " ");
         }
         String rawParams = sb.toString();
 
@@ -61,25 +62,27 @@ public class Parser {
             }
         } else if (inst.equals("mark")) {
             try {
-                int in = Integer.parseInt(rawParams) - 1;
+                int in = Integer.parseInt(rawParams.trim()) - 1;
                 return new MarkCommand(in);
             } catch (NumberFormatException e) {
                 return new ErrorCommand("Invalid Input :( Please enter the number of the task");
             }
         } else if (inst.equals("unmark")) {
             try {
-                int in = Integer.parseInt(rawParams) - 1;
+                int in = Integer.parseInt(rawParams.trim()) - 1;
                 return new UnmarkCommand(in);
             } catch (NumberFormatException e) {
                 return new ErrorCommand("Invalid Input :( Please enter the number of the task");
             }
         } else if (inst.equals("delete")) {
             try {
-                int in = Integer.parseInt(rawParams) - 1;
+                int in = Integer.parseInt(rawParams.trim()) - 1;
                 return new DeleteCommand(in);
             } catch (NumberFormatException e) {
                 return new ErrorCommand("Invalid Input :( Please enter the number of the task");
             }
+        } else if (inst.equals("find")) {
+            return new FindCommand(rawParams.trim());
         } else if (inst.equals("bye")) {
             if (!rawParams.trim().equals("")) {
                 return new ErrorCommand("Unexpected arguments in exit command");
