@@ -193,4 +193,14 @@ public class TaskList {
             System.out.println("Please enter the deadline in a yyyy-mm-dd format");
         }
     }
+
+    public ArrayList<Task> findTasks(String searchString) {
+        ArrayList<Task> res = new ArrayList<>();
+        for (Task task : list) {
+            if (task.getTitle().contains(searchString)) {
+                res.add(task);
+            }
+        }
+        return res;
+    }
 }

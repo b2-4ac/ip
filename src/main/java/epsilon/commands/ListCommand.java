@@ -1,5 +1,8 @@
 package epsilon.commands;
 
+import java.util.ArrayList;
+
+import epsilon.tasks.Task;
 import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
@@ -7,6 +10,7 @@ import epsilon.Ui;
 public class ListCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        list.printList();
+        ArrayList<Task> l = list.getRawList();
+        ui.showList(l);
     }
 }

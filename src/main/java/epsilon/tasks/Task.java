@@ -30,7 +30,7 @@ public abstract class Task {
      * 
      * @return Title of task.
      */
-    String getTitle() {
+    public String getTitle() {
         return this.title;
     }
 

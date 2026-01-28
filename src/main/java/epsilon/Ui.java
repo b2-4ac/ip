@@ -1,6 +1,9 @@
 package epsilon;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import epsilon.tasks.Task;
 
 public class Ui {
     private Scanner sc;
@@ -32,5 +35,15 @@ public class Ui {
 
     public void showError(String message) {
         System.out.println("Error: " + message);
+    }
+
+    public void showList(ArrayList<Task> list) {
+        if (list.size() == 0) {
+            System.out.println("No tasks found.");
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println((i + 1) + ". " + list.get(i));
+            }
+        }
     }
 }
