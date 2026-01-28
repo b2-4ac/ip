@@ -36,20 +36,19 @@ public class Event extends Task {
     public String encode() {
         if (super.getIsCompleted()) {
             return "E | " + "1" + " | " + super.getTitle() + " | "
-                + this.start.format(DateTimeFormatter.ISO_LOCAL_DATE) + " | "
-                + this.end.format(DateTimeFormatter.ISO_LOCAL_DATE);
+                    + this.start.format(DateTimeFormatter.ISO_LOCAL_DATE) + " | "
+                    + this.end.format(DateTimeFormatter.ISO_LOCAL_DATE);
         } else {
             return "E | " + "0" + " | " + super.getTitle() + " | "
-                + this.start.format(DateTimeFormatter.ISO_LOCAL_DATE) + " | "
-                + this.end.format(DateTimeFormatter.ISO_LOCAL_DATE);
+                    + this.start.format(DateTimeFormatter.ISO_LOCAL_DATE) + " | "
+                    + this.end.format(DateTimeFormatter.ISO_LOCAL_DATE);
         }
     }
-
 
     @Override
     public String toString() {
         return "/E/" + super.toString() + " (from: "
-            + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
-            + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + this.start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " to: "
+                + this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }
