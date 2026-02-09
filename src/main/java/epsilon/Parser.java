@@ -60,7 +60,6 @@ public class Parser {
                 String[] splitSecond = second.split("/to");
                 String start = splitSecond[0];
                 String end = splitSecond[1];
-                System.out.println(end);
                 params.add(title);
                 params.add(start);
                 params.add(end);
