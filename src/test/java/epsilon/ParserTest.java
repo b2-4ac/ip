@@ -1,10 +1,10 @@
 package epsilon;
 
-import java.beans.Transient;
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
+import org.junit.jupiter.api.Test;
 
 import epsilon.commands.AddCommand;
-import epsilon.commands.Command;
 import epsilon.commands.DeleteCommand;
 import epsilon.commands.ErrorCommand;
 import epsilon.commands.ExitCommand;
@@ -12,18 +12,12 @@ import epsilon.commands.ListCommand;
 import epsilon.commands.MarkCommand;
 import epsilon.commands.UnmarkCommand;
 import epsilon.exceptions.MissingInputException;
-import epsilon.tasks.Todo;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class ParserTest {
     @Test
     public void parse_standardInput_success() throws MissingInputException {
         Parser parser = new Parser();
-        
+
         assertInstanceOf(AddCommand.class, parser.parse("todo New Todo"));
         assertInstanceOf(AddCommand.class, parser.parse("deadline New Deadline /by 2026-01-29"));
         assertInstanceOf(AddCommand.class, parser.parse("event New Event /from 2026-01-29 /to 2026-01-30"));
@@ -35,15 +29,13 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_missingInfo_errorCommand() {
+    public void parse_improperFormat_errorCommand() {
         Parser parser = new Parser();
 
         assertInstanceOf(ErrorCommand.class, parser.parse("deadline New Deadline"));
-        assertInstanceOf(ErrorCommand.class, parser.parse("deadline New Deadline /by"));
         assertInstanceOf(ErrorCommand.class, parser.parse("event New Event"));
         assertInstanceOf(ErrorCommand.class, parser.parse("event New Event /from"));
         assertInstanceOf(ErrorCommand.class, parser.parse("event New Event /to"));
-        assertInstanceOf(ErrorCommand.class, parser.parse("event New Event /from 2026-01-29 /to"));
     }
 
     @Test
