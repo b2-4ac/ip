@@ -12,7 +12,7 @@ public class ErrorCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        ui.showError(this.message);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return this.message;
     }
 }

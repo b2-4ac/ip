@@ -12,10 +12,10 @@ public abstract class Command {
      * All Command objects must specify this execute() function which
      * performs an operation on the provided TaskList, Ui and/or Storage
      * objects provided.
-     * 
+     *
      * @param t TaskList object which holds a List of Task objects.
      * @param u Ui object which handles what the user sees and receives input.
      * @param s Storage object used for interacting with local hard disk storage files.
      */
-    public abstract void execute(TaskList t, Ui u, Storage s);
+    public abstract String execute(TaskList t, Ui u, Storage s);
 }

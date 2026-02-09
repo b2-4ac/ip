@@ -12,7 +12,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        list.deleteTask(index);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return list.deleteTask(index);
     }
 }

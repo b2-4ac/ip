@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("epsilon.Epsilon")
+    mainClass.set("epsilon.Launcher")
 }
 
 checkstyle {
@@ -57,6 +57,6 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
-    standardInput = System.in
-}
+// run{
+//     standardInput = System.in
+// }

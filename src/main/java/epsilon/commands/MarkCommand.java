@@ -12,7 +12,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        list.markTask(index);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return list.markTask(index);
     }
 }

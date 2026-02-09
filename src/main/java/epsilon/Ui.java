@@ -1,49 +1,47 @@
 package epsilon;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import epsilon.tasks.Task;
 
+/**
+ * The class responsible for formatting program output.
+ */
 public class Ui {
-    private Scanner sc;
 
-    public Ui() {
-        this.sc = new Scanner(System.in);
+    /**
+     * Returns standard welcome message on application start.
+     */
+    public String welcome() {
+        return "Hello! I'm Epsilon\nWhat can I do for you?";
     }
 
-    public String readCommand() {
-        return sc.nextLine();
+    /**
+     * Returns standard farewell message on application close.
+     *
+     * @return String containing farewell message.
+     */
+    public String farewell() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    public void welcome() {
-        line();
-        System.out.println("Hello! I'm Epsilon\nWhat can I do for you?");
-        line();
-    }
+    /**
+     * Takes in a list of Tasks and formats all tasks into a readable
+     * String to be output.
+     *
+     * @param list ArrayList of tasks to be printed.
+     * @return String format of the tasks specified.
+     */
+    public String showList(ArrayList<Task> list) {
+        StringBuilder sb = new StringBuilder();
 
-    public void farewell() {
-        line();
-        System.out.println("Bye. Hope to see you again soon!");
-        line();
-        this.sc.close();
-    }
-
-    public void line() {
-        System.out.println("____________________________________________________________");
-    }
-
-    public void showError(String message) {
-        System.out.println("Error: " + message);
-    }
-
-    public void showList(ArrayList<Task> list) {
         if (list.size() == 0) {
-            System.out.println("No tasks found.");
+            return "No tasks found.";
         } else {
             for (int i = 0; i < list.size(); i++) {
-                System.out.println((i + 1) + ". " + list.get(i));
+                sb.append((i + 1) + ". " + list.get(i) + "\n");
             }
+            return sb.toString();
         }
     }
 }

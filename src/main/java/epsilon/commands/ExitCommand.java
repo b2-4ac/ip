@@ -4,11 +4,14 @@ import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
 
+/**
+ * Represents a command that ends the application when executed.
+ */
 public class ExitCommand extends Command {
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         storage.writeTasks(list.getRawList());
-        ui.farewell();
         System.exit(0);
+        return ui.farewell();
     }
 }

@@ -7,10 +7,13 @@ import epsilon.TaskList;
 import epsilon.Ui;
 import epsilon.tasks.Task;
 
+/**
+ * Represents a command which prints all tasks currently in the list when executed.
+ */
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         ArrayList<Task> l = list.getRawList();
-        ui.showList(l);
+        return ui.showList(l);
     }
 }

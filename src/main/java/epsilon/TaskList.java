@@ -91,12 +91,12 @@ public class TaskList {
      *
      * @param idx Integer index indicating which task to mark as complete.
      */
-    public void markTask(int idx) {
+    public String markTask(int idx) {
         try {
             this.list.get(idx).mark();
-            System.out.println("Task marked as completed. Good Job!");
+            return "Task marked as completed. Good Job!";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task not found in list :(");
+            return "Task not found in list :(";
         }
     }
 
@@ -106,12 +106,12 @@ public class TaskList {
      *
      * @param idx Integer index indicating which task to mark as incomplete
      */
-    public void unmarkTask(int idx) {
+    public String unmarkTask(int idx) {
         try {
             this.list.get(idx).unmark();
-            System.out.println("Task has been reset. Get it done soon!");
+            return "Task has been reset. Get it done soon!";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task not found in list :(");
+            return "Task not found in list :(";
         }
     }
 
@@ -121,12 +121,12 @@ public class TaskList {
      *
      * @param idx Integer index indicating which task to delete.
      */
-    public void deleteTask(int idx) {
+    public String deleteTask(int idx) {
         try {
             this.list.remove(idx);
-            System.out.println("Task removed successfully.");
+            return "Task removed successfully.";
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Task not found in list :(");
+            return "Task not found in list :(";
         }
     }
 
@@ -138,13 +138,13 @@ public class TaskList {
      *
      * @param title Title of the Todo task.
      */
-    public void addTask(String title) {
+    public String addTask(String title) {
         try {
             Todo newTask = new Todo(title);
             this.list.add(newTask);
-            System.out.println("Added new To Do: " + title);
+            return "Added new To Do: " + title;
         } catch (MissingInputException e) {
-            System.out.println("Oops! Some information is missing :(");
+            return "Oops! Some information is missing :(";
         }
     }
 
@@ -156,17 +156,17 @@ public class TaskList {
      *
      * @param title Title of the Deadline task.
      * @param deadline String representation of the date of the deadline in yyyy-mm-dd
-     * format.
+     *     format.
      */
-    public void addTask(String title, String deadline) {
+    public String addTask(String title, String deadline) {
         try {
             Deadline newTask = new Deadline(title, deadline);
             this.list.add(newTask);
-            System.out.println("Added new Deadline: " + title);
+            return "Added new Deadline: " + title;
         } catch (MissingInputException e) {
-            System.out.println("Oops! Some information is missing :(");
+            return "Oops! Some information is missing :(";
         } catch (DateTimeParseException e) {
-            System.out.println("Please enter the deadline in a yyyy-mm-dd format");
+            return "Please enter the deadline in a yyyy-mm-dd format";
         }
     }
 
@@ -178,22 +178,29 @@ public class TaskList {
      *
      * @param title Title of the Deadline task.
      * @param start String representation of the date of the start of the event
-     * in yyyy-mm-dd format.
+     *     in yyyy-mm-dd format.
      * @param end String representation of the date of the start of the event
-     * in yyyy-mm-dd format.
+     *     in yyyy-mm-dd format.
      */
-    public void addTask(String title, String start, String end) {
+    public String addTask(String title, String start, String end) {
         try {
             Event newTask = new Event(title, start, end);
             this.list.add(newTask);
-            System.out.println("Added new Event: " + title);
+            return "Added new Event: " + title;
         } catch (MissingInputException e) {
-            System.out.println("Oops! Some information is missing :(");
+            return "Oops! Some information is missing :(";
         } catch (DateTimeParseException e) {
-            System.out.println("Please enter the deadline in a yyyy-mm-dd format");
+            return "Please enter the deadline in a yyyy-mm-dd format";
         }
     }
 
+    /**
+     * Takes in a String from the user and filters through the existing tasks.
+     * Returns only tasks that contain the specified String.
+     *
+     * @param searchString String to search for by the user.
+     * @return Returns a list of tasks that contain the specified String.
+     */
     public ArrayList<Task> findTasks(String searchString) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task task : list) {

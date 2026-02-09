@@ -25,19 +25,19 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         if (this.type.equals("todo")) {
             String title = params.get(0);
-            list.addTask(title);
+            return list.addTask(title);
         } else if (type.equals("deadline")) {
             String title = params.get(0);
             String deadline = params.get(1);
-            list.addTask(title, deadline);
-        } else if (type.equals("event")) {
+            return list.addTask(title, deadline);
+        } else {
             String title = params.get(0);
             String start = params.get(1);
             String end = params.get(2);
-            list.addTask(title, start, end);
+            return list.addTask(title, start, end);
         }
     }
 }

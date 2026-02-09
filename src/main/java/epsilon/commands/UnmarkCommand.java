@@ -12,7 +12,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        list.unmarkTask(index);
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return list.unmarkTask(index);
     }
 }
