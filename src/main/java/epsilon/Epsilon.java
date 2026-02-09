@@ -4,12 +4,23 @@ import java.util.List;
 
 import epsilon.commands.Command;
 
+/**
+ * Represents the core functionality of the Epsilon application.
+ */
 public class Epsilon {
     private Ui ui;
     private Storage storage;
     private Parser parser;
     private TaskList list;
 
+    /**
+     * Takes in the path to the file where the tasks are to be stored and
+     * creates a new Epsilon object, which represents the core functionality
+     * of the application.
+     *
+     * @param listPath String representing the path to the file that is used to store
+     *     the input tasks.
+     */
     public Epsilon(String listPath) {
         this.ui = new Ui();
         this.storage = new Storage(listPath);

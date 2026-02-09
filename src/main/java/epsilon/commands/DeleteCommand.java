@@ -4,6 +4,9 @@ import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
 
+/**
+ * Represents a command which removes a task when executed.
+ */
 public class DeleteCommand extends Command {
     private int index;
 

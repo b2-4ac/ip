@@ -6,6 +6,9 @@ import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
 
+/**
+ * Represents a command which adds a task to the list when executed.
+ */
 public class AddCommand extends Command {
     private String type;
     private ArrayList<String> params;
@@ -17,7 +20,7 @@ public class AddCommand extends Command {
      *
      * @param type Type of task to be created.
      * @param params ArrayList of parameters provided by user input for Task object
-     *  creation.
+     *        creation.
      */
     public AddCommand(String type, ArrayList<String> params) {
         this.type = type;

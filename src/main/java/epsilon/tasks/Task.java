@@ -15,7 +15,7 @@ public abstract class Task {
      *
      * @param title Title of the task to be created.
      * @throws MissingInputException Throws this exception if the title provided is empty
-     * or purely whitespace.
+     *     or purely whitespace.
      */
     public Task(String title) throws MissingInputException {
         if (title.trim().equals("")) {

@@ -53,7 +53,7 @@ public class Storage {
      * Storage object's instantiation.
      *
      * @param taskList A List of Task objects to be converted into
-     * Strings and written.
+     *     Strings and written.
      */
     public void writeTasks(List<Task> taskList) {
         ArrayList<String> toWrite = new ArrayList<>();

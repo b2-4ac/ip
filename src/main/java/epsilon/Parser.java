@@ -24,7 +24,7 @@ public class Parser {
      *
      * @param cmd An instruction in the form of a String.
      * @return The proper Command type with the appropriate parameters
-     * for execution.
+     *     for execution.
      */
     public Command parse(String cmd) {
         String[] cmdSplit = cmd.split(" ");
@@ -60,6 +60,7 @@ public class Parser {
                 String[] splitSecond = second.split("/to");
                 String start = splitSecond[0];
                 String end = splitSecond[1];
+                System.out.println(end);
                 params.add(title);
                 params.add(start);
                 params.add(end);

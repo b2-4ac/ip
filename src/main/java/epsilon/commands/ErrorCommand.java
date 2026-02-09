@@ -4,6 +4,9 @@ import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
 
+/**
+ * Represents a command that is only created in the event of user error.
+ */
 public class ErrorCommand extends Command {
     private String message;
 

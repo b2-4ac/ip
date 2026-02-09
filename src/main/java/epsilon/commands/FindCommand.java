@@ -2,11 +2,15 @@ package epsilon.commands;
 
 import java.util.ArrayList;
 
+import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
-import epsilon.Storage;
 import epsilon.tasks.Task;
 
+/**
+ * Represents a command that filters through the existing list of tasks and
+ * returns only the tasks that contain the specified String when executed.
+ */
 public class FindCommand extends Command {
     private String searchString;
 
