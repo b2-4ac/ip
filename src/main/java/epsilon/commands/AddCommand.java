@@ -29,18 +29,19 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
-        if (this.type.equals("todo")) {
-            String title = params.get(0);
+        String title = params.get(0);
+        switch (this.type) {
+        case "todo":
             return list.addTask(title);
-        } else if (type.equals("deadline")) {
-            String title = params.get(0);
+        case "deadline":
             String deadline = params.get(1);
             return list.addTask(title, deadline);
-        } else {
-            String title = params.get(0);
+        case "event":
             String start = params.get(1);
             String end = params.get(2);
             return list.addTask(title, start, end);
+        default:
+            return "Unknown Task Type detected";
         }
     }
 }

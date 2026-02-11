@@ -16,7 +16,7 @@ import epsilon.tasks.Todo;
  */
 
 public class TaskList {
-    private ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Takes in a list of Strings as input and converts each line into a
@@ -25,40 +25,46 @@ public class TaskList {
      * @param input List of Strings, typically read from a local .txt file.
      */
     public TaskList(List<String> input) {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         try {
             for (String rawTask : input) {
-                String[] split = rawTask.split("\\|");
-                if (split[0].trim().equals("T")) {
-                    String title = split[2];
-                    Todo newTodo = new Todo(title);
-                    if (split[1].trim().equals("1")) {
-                        newTodo.mark();
-                    }
-                    this.list.add(newTodo);
-                } else if (split[0].trim().equals("D")) {
-                    String title = split[2];
-                    String deadline = split[3];
-                    Deadline newDeadline = new Deadline(title, deadline);
-                    if (split[1].trim().equals("1")) {
-                        newDeadline.mark();
-                    }
-                    this.list.add(newDeadline);
-                } else if (split[0].trim().equals("E")) {
-                    String title = split[2];
-                    String start = split[3];
-                    String end = split[4];
-                    Event newEvent = new Event(title, start, end);
-                    if (split[1].trim().equals("1")) {
-                        newEvent.mark();
-                    }
-                    this.list.add(newEvent);
-                }
+                this.tasks.add(parseTask(rawTask));
             }
         } catch (MissingInputException e) {
             System.out.println("Error in Data: Missing Input");
         } catch (DateTimeParseException e) {
             System.out.println("Error in Data: Invalid Date");
+        }
+    }
+
+    private Task parseTask(String rawTask) throws MissingInputException {
+        String[] split = rawTask.split("\\|");
+
+        String type = split[0].trim();
+        boolean isDone = split[1].trim().equals("1");
+        String title = split[2];
+
+        switch (type) {
+        case "T":
+            Todo newTodo = new Todo(title);
+            if (isDone) {
+                newTodo.mark();
+            }
+            return newTodo;
+        case "D":
+            Deadline newDeadline = new Deadline(title, split[3]);
+            if (isDone) {
+                newDeadline.mark();
+            }
+            return newDeadline;
+        case "E":
+            Event newEvent = new Event(title, split[3], split[4]);
+            if (isDone) {
+                newEvent.mark();
+            }
+            return newEvent;
+        default:
+            throw new MissingInputException();
         }
     }
 
@@ -68,7 +74,7 @@ public class TaskList {
      * @return Java ArrayList object.
      */
     public ArrayList<Task> getRawList() {
-        return this.list;
+        return this.tasks;
     }
 
     /**
@@ -76,11 +82,11 @@ public class TaskList {
      * representation.
      */
     public void printList() {
-        if (this.list.size() == 0) {
+        if (this.tasks.size() == 0) {
             System.out.println("No tasks yet.");
         } else {
-            for (int i = 0; i < this.list.size(); i++) {
-                System.out.println((i + 1) + ". " + list.get(i));
+            for (int i = 0; i < this.tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
     }
@@ -93,7 +99,7 @@ public class TaskList {
      */
     public String markTask(int idx) {
         try {
-            this.list.get(idx).mark();
+            this.tasks.get(idx).mark();
             return "Task marked as completed. Good Job!";
         } catch (IndexOutOfBoundsException e) {
             return "Task not found in list :(";
@@ -108,7 +114,7 @@ public class TaskList {
      */
     public String unmarkTask(int idx) {
         try {
-            this.list.get(idx).unmark();
+            this.tasks.get(idx).unmark();
             return "Task has been reset. Get it done soon!";
         } catch (IndexOutOfBoundsException e) {
             return "Task not found in list :(";
@@ -123,7 +129,7 @@ public class TaskList {
      */
     public String deleteTask(int idx) {
         try {
-            this.list.remove(idx);
+            this.tasks.remove(idx);
             return "Task removed successfully.";
         } catch (IndexOutOfBoundsException e) {
             return "Task not found in list :(";
@@ -141,7 +147,7 @@ public class TaskList {
     public String addTask(String title) {
         try {
             Todo newTask = new Todo(title);
-            this.list.add(newTask);
+            this.tasks.add(newTask);
             return "Added new To Do: " + title;
         } catch (MissingInputException e) {
             return "Oops! Some information is missing :(";
@@ -161,7 +167,7 @@ public class TaskList {
     public String addTask(String title, String deadline) {
         try {
             Deadline newTask = new Deadline(title, deadline);
-            this.list.add(newTask);
+            this.tasks.add(newTask);
             return "Added new Deadline: " + title;
         } catch (MissingInputException e) {
             return "Oops! Some information is missing :(";
@@ -185,7 +191,7 @@ public class TaskList {
     public String addTask(String title, String start, String end) {
         try {
             Event newTask = new Event(title, start, end);
-            this.list.add(newTask);
+            this.tasks.add(newTask);
             return "Added new Event: " + title;
         } catch (MissingInputException e) {
             return "Oops! Some information is missing :(";
@@ -203,7 +209,7 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String searchString) {
         ArrayList<Task> res = new ArrayList<>();
-        for (Task task : list) {
+        for (Task task : tasks) {
             if (task.getTitle().contains(searchString)) {
                 res.add(task);
             }
