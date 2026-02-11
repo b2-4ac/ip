@@ -28,8 +28,11 @@ public class TaskList {
         this.list = new ArrayList<>();
         try {
             for (String rawTask : input) {
+                assert rawTask.contains("\\|") : "Task Information should be split using |";
                 String[] split = rawTask.split("\\|");
+                assert split[0].trim().equals("T") || split[0].trim().equals("D") || split[0].trim().equals("E") : "Encoded task type should be represented using T, D or E";
                 if (split[0].trim().equals("T")) {
+                    assert split.length == 3 : "Todo should have Type, Status and Title";
                     String title = split[2];
                     Todo newTodo = new Todo(title);
                     if (split[1].trim().equals("1")) {
@@ -37,6 +40,7 @@ public class TaskList {
                     }
                     this.list.add(newTodo);
                 } else if (split[0].trim().equals("D")) {
+                    assert split.length == 4 : "Deadline should have Type, Status, Title and Deadline";
                     String title = split[2];
                     String deadline = split[3];
                     Deadline newDeadline = new Deadline(title, deadline);
@@ -45,6 +49,7 @@ public class TaskList {
                     }
                     this.list.add(newDeadline);
                 } else if (split[0].trim().equals("E")) {
+                    assert split.length == 5 : "Event should have Type, Status and Title, Start and End date";
                     String title = split[2];
                     String start = split[3];
                     String end = split[4];
