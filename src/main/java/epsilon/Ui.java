@@ -1,6 +1,6 @@
 package epsilon;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import epsilon.tasks.Task;
 
@@ -13,7 +13,7 @@ public class Ui {
      * Returns standard welcome message on application start.
      */
     public String welcome() {
-        return "Hello! I'm Epsilon\nWhat can I do for you?";
+        return "Hello! I'm Epsilon\nYour trusty task companion!";
     }
 
     /**
@@ -32,7 +32,7 @@ public class Ui {
      * @param list ArrayList of tasks to be printed.
      * @return String format of the tasks specified.
      */
-    public String showList(ArrayList<Task> list) {
+    public String showList(List<Task> list) {
         StringBuilder sb = new StringBuilder();
 
         if (list.size() == 0) {

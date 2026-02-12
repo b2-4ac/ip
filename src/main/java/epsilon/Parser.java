@@ -11,6 +11,7 @@ import epsilon.commands.FindCommand;
 import epsilon.commands.ListCommand;
 import epsilon.commands.MarkCommand;
 import epsilon.commands.UnmarkCommand;
+import epsilon.commands.UpcomingCommand;
 
 /**
  * An object used for interpreting and parsing user input into
@@ -48,6 +49,8 @@ public class Parser {
             return handleDelete(rawParams);
         case "find":
             return handleFind(rawParams);
+        case "upcoming":
+            return handleUpcoming(rawParams);
         case "bye":
             return handleBye(rawParams);
         default:
@@ -196,6 +199,14 @@ public class Parser {
      */
     private Command handleFind(String rawParams) {
         return new FindCommand(rawParams.trim());
+    }
+
+    private Command handleUpcoming(String rawParams) {
+        if (!rawParams.trim().equals("")) {
+            return new ErrorCommand("Unexpected arguments in \'upcoming\' command");
+        } else {
+            return new UpcomingCommand();
+        }
     }
 
     /**
