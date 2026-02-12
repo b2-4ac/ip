@@ -23,6 +23,7 @@ public class Storage {
      * @param pathString File path in String representation.
      */
     public Storage(String pathString) {
+        assert !pathString.trim().equals("") : "Valid filename should be used";
         this.filePath = Paths.get(pathString);
     }
 

@@ -30,13 +30,17 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
         if (this.type.equals("todo")) {
+            assert params.size() == 1 : "Todo needs a title";
             String title = params.get(0);
             return list.addTask(title);
         } else if (type.equals("deadline")) {
+            assert params.size() == 2 : "Deadline needs a title and a deadline";
             String title = params.get(0);
             String deadline = params.get(1);
             return list.addTask(title, deadline);
         } else {
+            assert params.size() == 3 : "Event needs a title, start and end date";
+            assert this.type.equals("event") : "AddCommand only applicable for Todo, Deadline and Event";
             String title = params.get(0);
             String start = params.get(1);
             String end = params.get(2);
