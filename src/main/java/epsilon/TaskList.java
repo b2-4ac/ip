@@ -29,6 +29,7 @@ public class TaskList {
         this.tasks = new ArrayList<>();
         try {
             for (String rawTask : input) {
+                assert rawTask.contains("\\|") : "Task Information should be split using |";
                 this.tasks.add(parseTask(rawTask));
             }
         } catch (MissingInputException e) {

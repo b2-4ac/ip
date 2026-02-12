@@ -32,11 +32,14 @@ public class AddCommand extends Command {
         String title = params.get(0);
         switch (this.type) {
         case "todo":
+            assert params.size() == 1 : "Todo needs a title";
             return list.addTask(title);
         case "deadline":
+            assert params.size() == 2 : "Deadline needs a title and a deadline";
             String deadline = params.get(1);
             return list.addTask(title, deadline);
         case "event":
+            assert params.size() == 3 : "Event needs a title, start and end date";
             String start = params.get(1);
             String end = params.get(2);
             return list.addTask(title, start, end);
