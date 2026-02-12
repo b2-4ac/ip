@@ -141,62 +141,36 @@ public class TaskList {
     }
 
     /**
-     * Overloaded addTask method which changes the type of Task object
-     * to be created based on the number of parameters provided to the
-     * method. One parameter creates a Todo. Two parameters create a Deadline.
-     * Three parameters create an Event.
+     * Takes in a title and possibly some dates depending on the
+     * requested type of task to be added. Adds the specified
+     * type of task along with the details into the current
+     * task list.
      *
-     * @param title Title of the Todo task.
+     * @param title Required title of the task to be added.
+     * @param dates String of dates (from 0-2) depending on the type
+     *     of task to be created.
+     * @return Confirmation string if a task has been added successfully.
+     *     Returns a message informing the user of an error if bad
+     *     input is detected.
      */
-    public String addTask(String title) {
+    public String addTask(String title, String... dates) {
         try {
-            Todo newTask = new Todo(title);
-            this.tasks.add(newTask);
-            return "Added new To Do: " + title;
-        } catch (MissingInputException e) {
-            return "Oops! Some information is missing :(";
-        }
-    }
-
-    /**
-     * Overloaded addTask method which changes the type of Task object
-     * to be created based on the number of parameters provided to the
-     * method. One parameter creates a Todo. Two parameters create a Deadline.
-     * Three parameters create an Event.
-     *
-     * @param title Title of the Deadline task.
-     * @param deadline String representation of the date of the deadline in yyyy-mm-dd
-     *     format.
-     */
-    public String addTask(String title, String deadline) {
-        try {
-            Deadline newTask = new Deadline(title, deadline);
-            this.tasks.add(newTask);
-            return "Added new Deadline: " + title;
-        } catch (MissingInputException e) {
-            return "Oops! Some information is missing :(";
-        } catch (DateTimeParseException e) {
-            return "Please enter the deadline in a yyyy-mm-dd format";
-        }
-    }
-
-    /**
-     * Overloaded addTask method which changes the type of Task object
-     * to be created based on the number of parameters provided to the
-     * method. One parameter creates a Todo. Two parameters create a Deadline.
-     * Three parameters create an Event.
-     *
-     * @param title Title of the Deadline task.
-     * @param start String representation of the date of the start of the event
-     *     in yyyy-mm-dd format.
-     * @param end String representation of the date of the start of the event
-     *     in yyyy-mm-dd format.
-     */
-    public String addTask(String title, String start, String end) {
-        try {
-            Event newTask = new Event(title, start, end);
-            this.tasks.add(newTask);
-            return "Added new Event: " + title;
+            switch (dates.length) {
+            case 0:
+                Todo newTodo = new Todo(title);
+                this.tasks.add(newTodo);
+                return "Added new To Do: " + title;
+            case 1:
+                Deadline newDeadline = new Deadline(title, dates[0]);
+                this.tasks.add(newDeadline);
+                return "Added new Deadline: " + title;
+            case 2:
+                Event newEvent = new Event(title, dates[0], dates[1]);
+                this.tasks.add(newEvent);
+                return "Added new Event: " + title;
+            default:
+                return "Error: Too Many Parameters";
+            }
         } catch (MissingInputException e) {
             return "Oops! Some information is missing :(";
         } catch (DateTimeParseException e) {
