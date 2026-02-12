@@ -9,7 +9,7 @@ import epsilon.exceptions.MissingInputException;
 /**
  * Represents a Task with a deadline.
  */
-public class Deadline extends Task {
+public class Deadline extends TimedTask {
     private LocalDate deadline;
 
     /**
@@ -27,6 +27,11 @@ public class Deadline extends Task {
             throw new MissingInputException();
         }
         this.deadline = LocalDate.parse(deadline.trim());
+    }
+
+    @Override
+    public LocalDate getCriticalDate() {
+        return this.deadline;
     }
 
     @Override

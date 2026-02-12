@@ -9,7 +9,7 @@ import epsilon.exceptions.MissingInputException;
 /**
  * A task with a duration (i.e. Start and End)
  */
-public class Event extends Task {
+public class Event extends TimedTask {
     private LocalDate start;
     private LocalDate end;
 
@@ -30,6 +30,11 @@ public class Event extends Task {
         }
         this.start = LocalDate.parse(start.trim());
         this.end = LocalDate.parse(end.trim());
+    }
+
+    @Override
+    public LocalDate getCriticalDate() {
+        return this.start;
     }
 
     @Override

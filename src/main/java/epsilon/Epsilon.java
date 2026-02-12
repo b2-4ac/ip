@@ -1,8 +1,10 @@
 package epsilon;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import epsilon.commands.Command;
+import epsilon.tasks.Task;
 
 /**
  * Represents the core functionality of the Epsilon application.
@@ -48,7 +50,23 @@ public class Epsilon {
      * @return String that contains a welcome message.
      */
     public String greet() {
-        return ui.welcome();
+        String greeting = ui.welcome();
+        String upcomingTasks = this.getUpcomingTasks();
+
+        if (upcomingTasks.equals("No tasks found.")) {
+            return greeting;
+        }
+
+        return greeting + "\n"
+            + "---\n"
+            + "Here are some of your upcoming tasks:\n"
+            + upcomingTasks;
+    }
+
+    private String getUpcomingTasks() {
+        LocalDate threshhold = LocalDate.now().plusWeeks(1);
+        List<Task> upcomingTasks = this.list.getTasksBefore(threshhold);
+        return ui.showList(upcomingTasks);
     }
 
     /**

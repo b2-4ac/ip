@@ -1,5 +1,6 @@
 package epsilon;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import epsilon.exceptions.UnknownInputException;
 import epsilon.tasks.Deadline;
 import epsilon.tasks.Event;
 import epsilon.tasks.Task;
+import epsilon.tasks.TimedTask;
 import epsilon.tasks.Todo;
 
 /**
@@ -193,5 +195,18 @@ public class TaskList {
             }
         }
         return res;
+    }
+
+    public ArrayList<Task> getTasksBefore(LocalDate threshold) {
+        ArrayList<Task> tasksBeforeThreshold = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task instanceof TimedTask) {
+                LocalDate criticalDate = ((TimedTask) task).getCriticalDate();
+                if (criticalDate.isBefore(threshold)) {
+                    tasksBeforeThreshold.add(task);
+                }
+            }
+        }
+        return tasksBeforeThreshold;
     }
 }
