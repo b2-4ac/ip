@@ -53,17 +53,17 @@ public class Storage {
      * before storing them into the file path specified during this
      * Storage object's instantiation.
      *
-     * @param taskList A List of Task objects to be converted into
+     * @param tasks A List of Task objects to be converted into
      *     Strings and written.
      */
-    public void writeTasks(List<Task> taskList) {
-        ArrayList<String> toWrite = new ArrayList<>();
-        for (Task task : taskList) {
-            toWrite.add(task.encode());
+    public void writeTasks(List<Task> tasks) {
+        ArrayList<String> encodedTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            encodedTasks.add(task.encode());
         }
 
         try {
-            Files.write(this.filePath, toWrite);
+            Files.write(this.filePath, encodedTasks);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

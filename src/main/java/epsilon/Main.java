@@ -23,7 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setOnCloseRequest(event -> {
-                epsilon.terminate();
+                epsilon.saveAndExit();
             });
             fxmlLoader.<MainWindow>getController().setEpsilon(epsilon); // inject the Epsilon instance
             stage.show();

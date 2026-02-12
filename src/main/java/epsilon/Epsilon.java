@@ -38,19 +38,25 @@ public class Epsilon {
      *     issued.
      */
     public String getResponse(String cmd) {
-        Command c = parser.parse(cmd);
-        return c.execute(list, ui, storage);
+        Command command = parser.parse(cmd);
+        return command.execute(list, ui, storage);
     }
 
+    /**
+     * Returns the standard welcome message.
+     *
+     * @return String that contains a welcome message.
+     */
     public String greet() {
         return ui.welcome();
     }
 
     /**
-     * Terminates the program. Used only when the user closes the program using
-     * the close button and not the 'bye' command.
+     * Saves all tasks to hard disk and exits the program.
+     * Used only when the user closes the program using the close button
+     * and not the 'bye' command.
      */
-    public void terminate() {
+    public void saveAndExit() {
         this.storage.writeTasks(this.list.getRawList());
     }
 }

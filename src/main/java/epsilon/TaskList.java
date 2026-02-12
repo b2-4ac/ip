@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epsilon.exceptions.MissingInputException;
+import epsilon.exceptions.UnknownInputException;
 import epsilon.tasks.Deadline;
 import epsilon.tasks.Event;
 import epsilon.tasks.Task;
@@ -16,7 +17,7 @@ import epsilon.tasks.Todo;
  */
 
 public class TaskList {
-    private ArrayList<Task> list;
+    private ArrayList<Task> tasks;
 
     /**
      * Takes in a list of Strings as input and converts each line into a
@@ -25,45 +26,49 @@ public class TaskList {
      * @param input List of Strings, typically read from a local .txt file.
      */
     public TaskList(List<String> input) {
-        this.list = new ArrayList<>();
+        this.tasks = new ArrayList<>();
         try {
             for (String rawTask : input) {
                 assert rawTask.contains("\\|") : "Task Information should be split using |";
-                String[] split = rawTask.split("\\|");
-                assert split[0].trim().equals("T") || split[0].trim().equals("D") || split[0].trim().equals("E") : "Encoded task type should be represented using T, D or E";
-                if (split[0].trim().equals("T")) {
-                    assert split.length == 3 : "Todo should have Type, Status and Title";
-                    String title = split[2];
-                    Todo newTodo = new Todo(title);
-                    if (split[1].trim().equals("1")) {
-                        newTodo.mark();
-                    }
-                    this.list.add(newTodo);
-                } else if (split[0].trim().equals("D")) {
-                    assert split.length == 4 : "Deadline should have Type, Status, Title and Deadline";
-                    String title = split[2];
-                    String deadline = split[3];
-                    Deadline newDeadline = new Deadline(title, deadline);
-                    if (split[1].trim().equals("1")) {
-                        newDeadline.mark();
-                    }
-                    this.list.add(newDeadline);
-                } else if (split[0].trim().equals("E")) {
-                    assert split.length == 5 : "Event should have Type, Status and Title, Start and End date";
-                    String title = split[2];
-                    String start = split[3];
-                    String end = split[4];
-                    Event newEvent = new Event(title, start, end);
-                    if (split[1].trim().equals("1")) {
-                        newEvent.mark();
-                    }
-                    this.list.add(newEvent);
-                }
+                this.tasks.add(parseTask(rawTask));
             }
         } catch (MissingInputException e) {
             System.out.println("Error in Data: Missing Input");
+        } catch (UnknownInputException e) {
+            System.out.println("Error in Data: Unrecognised Input Detected");
         } catch (DateTimeParseException e) {
             System.out.println("Error in Data: Invalid Date");
+        }
+    }
+
+    private Task parseTask(String rawTask) throws MissingInputException, UnknownInputException {
+        String[] split = rawTask.split("\\|");
+
+        String type = split[0].trim();
+        boolean isDone = split[1].trim().equals("1");
+        String title = split[2];
+
+        switch (type) {
+        case "T":
+            Todo newTodo = new Todo(title);
+            if (isDone) {
+                newTodo.mark();
+            }
+            return newTodo;
+        case "D":
+            Deadline newDeadline = new Deadline(title, split[3]);
+            if (isDone) {
+                newDeadline.mark();
+            }
+            return newDeadline;
+        case "E":
+            Event newEvent = new Event(title, split[3], split[4]);
+            if (isDone) {
+                newEvent.mark();
+            }
+            return newEvent;
+        default:
+            throw new UnknownInputException();
         }
     }
 
@@ -73,7 +78,7 @@ public class TaskList {
      * @return Java ArrayList object.
      */
     public ArrayList<Task> getRawList() {
-        return this.list;
+        return this.tasks;
     }
 
     /**
@@ -81,11 +86,11 @@ public class TaskList {
      * representation.
      */
     public void printList() {
-        if (this.list.size() == 0) {
+        if (this.tasks.size() == 0) {
             System.out.println("No tasks yet.");
         } else {
-            for (int i = 0; i < this.list.size(); i++) {
-                System.out.println((i + 1) + ". " + list.get(i));
+            for (int i = 0; i < this.tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
     }
@@ -98,7 +103,7 @@ public class TaskList {
      */
     public String markTask(int idx) {
         try {
-            this.list.get(idx).mark();
+            this.tasks.get(idx).mark();
             return "Task marked as completed. Good Job!";
         } catch (IndexOutOfBoundsException e) {
             return "Task not found in list :(";
@@ -113,7 +118,7 @@ public class TaskList {
      */
     public String unmarkTask(int idx) {
         try {
-            this.list.get(idx).unmark();
+            this.tasks.get(idx).unmark();
             return "Task has been reset. Get it done soon!";
         } catch (IndexOutOfBoundsException e) {
             return "Task not found in list :(";
@@ -128,7 +133,7 @@ public class TaskList {
      */
     public String deleteTask(int idx) {
         try {
-            this.list.remove(idx);
+            this.tasks.remove(idx);
             return "Task removed successfully.";
         } catch (IndexOutOfBoundsException e) {
             return "Task not found in list :(";
@@ -136,62 +141,36 @@ public class TaskList {
     }
 
     /**
-     * Overloaded addTask method which changes the type of Task object
-     * to be created based on the number of parameters provided to the
-     * method. One parameter creates a Todo. Two parameters create a Deadline.
-     * Three parameters create an Event.
+     * Takes in a title and possibly some dates depending on the
+     * requested type of task to be added. Adds the specified
+     * type of task along with the details into the current
+     * task list.
      *
-     * @param title Title of the Todo task.
+     * @param title Required title of the task to be added.
+     * @param dates String of dates (from 0-2) depending on the type
+     *     of task to be created.
+     * @return Confirmation string if a task has been added successfully.
+     *     Returns a message informing the user of an error if bad
+     *     input is detected.
      */
-    public String addTask(String title) {
+    public String addTask(String title, String... dates) {
         try {
-            Todo newTask = new Todo(title);
-            this.list.add(newTask);
-            return "Added new To Do: " + title;
-        } catch (MissingInputException e) {
-            return "Oops! Some information is missing :(";
-        }
-    }
-
-    /**
-     * Overloaded addTask method which changes the type of Task object
-     * to be created based on the number of parameters provided to the
-     * method. One parameter creates a Todo. Two parameters create a Deadline.
-     * Three parameters create an Event.
-     *
-     * @param title Title of the Deadline task.
-     * @param deadline String representation of the date of the deadline in yyyy-mm-dd
-     *     format.
-     */
-    public String addTask(String title, String deadline) {
-        try {
-            Deadline newTask = new Deadline(title, deadline);
-            this.list.add(newTask);
-            return "Added new Deadline: " + title;
-        } catch (MissingInputException e) {
-            return "Oops! Some information is missing :(";
-        } catch (DateTimeParseException e) {
-            return "Please enter the deadline in a yyyy-mm-dd format";
-        }
-    }
-
-    /**
-     * Overloaded addTask method which changes the type of Task object
-     * to be created based on the number of parameters provided to the
-     * method. One parameter creates a Todo. Two parameters create a Deadline.
-     * Three parameters create an Event.
-     *
-     * @param title Title of the Deadline task.
-     * @param start String representation of the date of the start of the event
-     *     in yyyy-mm-dd format.
-     * @param end String representation of the date of the start of the event
-     *     in yyyy-mm-dd format.
-     */
-    public String addTask(String title, String start, String end) {
-        try {
-            Event newTask = new Event(title, start, end);
-            this.list.add(newTask);
-            return "Added new Event: " + title;
+            switch (dates.length) {
+            case 0:
+                Todo newTodo = new Todo(title);
+                this.tasks.add(newTodo);
+                return "Added new To Do: " + title;
+            case 1:
+                Deadline newDeadline = new Deadline(title, dates[0]);
+                this.tasks.add(newDeadline);
+                return "Added new Deadline: " + title;
+            case 2:
+                Event newEvent = new Event(title, dates[0], dates[1]);
+                this.tasks.add(newEvent);
+                return "Added new Event: " + title;
+            default:
+                return "Error: Too Many Parameters";
+            }
         } catch (MissingInputException e) {
             return "Oops! Some information is missing :(";
         } catch (DateTimeParseException e) {
@@ -208,7 +187,7 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String searchString) {
         ArrayList<Task> res = new ArrayList<>();
-        for (Task task : list) {
+        for (Task task : tasks) {
             if (task.getTitle().contains(searchString)) {
                 res.add(task);
             }
