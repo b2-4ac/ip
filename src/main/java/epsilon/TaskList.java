@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epsilon.exceptions.MissingInputException;
+import epsilon.exceptions.UnknownInputException;
 import epsilon.tasks.Deadline;
 import epsilon.tasks.Event;
 import epsilon.tasks.Task;
@@ -32,12 +33,14 @@ public class TaskList {
             }
         } catch (MissingInputException e) {
             System.out.println("Error in Data: Missing Input");
+        } catch (UnknownInputException e) {
+            System.out.println("Error in Data: Unrecognised Input Detected");
         } catch (DateTimeParseException e) {
             System.out.println("Error in Data: Invalid Date");
         }
     }
 
-    private Task parseTask(String rawTask) throws MissingInputException {
+    private Task parseTask(String rawTask) throws MissingInputException, UnknownInputException {
         String[] split = rawTask.split("\\|");
 
         String type = split[0].trim();
@@ -64,7 +67,7 @@ public class TaskList {
             }
             return newEvent;
         default:
-            throw new MissingInputException();
+            throw new UnknownInputException();
         }
     }
 
