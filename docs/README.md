@@ -146,3 +146,17 @@ Format: `upcoming`
 Saves all currently written tasks and exits the application.
 
 Format: `bye`
+
+## Command Summary
+
+| Command | Format | Example |
+| --- | ------ | -------- |
+| Todo | `todo TITLE` | `todo Buy Milk` |
+| Deadline | `deadline TITLE /by DEADLINE` | `deadline Submit Project /by 2026-02-20` |
+| Event   | `event TITLE /from START /to END` | `event Career Fair /from 2026-06-14 /to 2026-06-18` |
+| List | `list` | |
+| Mark | `mark ID` | `mark 2` |
+| Unmark | `unmark ID` | `unmark 1`|
+| Delete | `delete ID` | `delete 3`|
+| Find | `find SEARCH_STRING` | `find Submit` |
+| Upcoming | `upcoming` | |
