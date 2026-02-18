@@ -51,22 +51,22 @@ public class Epsilon {
      */
     public String greet() {
         String greeting = ui.welcome();
-        String upcomingTasks = this.getUpcomingTasks();
+        List<Task> upcomingTasks = this.getUpcomingTasks();
 
-        if (upcomingTasks.equals("No tasks found.")) {
+        if (upcomingTasks.size() == 0) {
             return greeting;
         }
 
         return greeting + "\n"
             + "---\n"
             + "Here are some of your upcoming tasks:\n"
-            + upcomingTasks;
+            + ui.showList(upcomingTasks);
     }
 
-    private String getUpcomingTasks() {
+    private List<Task> getUpcomingTasks() {
         LocalDate threshhold = LocalDate.now().plusWeeks(1);
         List<Task> upcomingTasks = this.list.getTasksBefore(threshhold);
-        return ui.showList(upcomingTasks);
+        return upcomingTasks;
     }
 
     /**
