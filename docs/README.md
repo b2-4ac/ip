@@ -1,30 +1,96 @@
-# Duke User Guide
+# Epsilon User Guide
 
-// Update the title above to match the actual product name
+![// Product screenshot goes here](Ui.png)
 
-// Product screenshot goes here
+Welcome to the User Guide for Epsilon, a Task Tracking Application.
 
-// Product intro goes here
+## Adding Tasks: `todo`, `deadline` and `event`
 
-## Adding deadlines
+Adds a task to your current list of tasks.
+All dates (e.g. DEADLINE, START, END) are to be entered in YYYY-MM-DD format.
 
-// Describe the action and its outcome.
+Adding a "To Do" task (A Task with no Time Aspect):
+Format: `todo TITLE`
 
-// Give examples of usage
+Adding a "Deadline" task (A Task with a Deadline):
+Format: `deadline TITLE /by DEADLINE`
 
-Example: `keyword (optional arguments)`
+Adding a "Event" task (A Task with a Start and End date):
+Format: `event TITLE /from START /to END`
 
-// A description of the expected outcome goes here
+Examples:
+ - `todo Buy Milk`
+ - `deadline Submit Project /by 2026-02-20`
+ - `event Career Fair /from 2026-06-14 /to 2026-06-18`
+
+## Listing All Tasks: `list`
+
+Prints a list of all current recorded tasks.
+
+Format: `list`
 
 ```
 expected output
 ```
 
-## Feature ABC
+## Marking Tasks: `mark`
 
-// Feature details
+Marks a specified Task as Completed.
 
+Format: `mark ID`
 
-## Feature XYZ
+Example:
+ - `mark 2`
 
-// Feature details
+```
+expected output
+```
+
+## Unmarking Tasks: `unmark`
+
+Unmarks a specified Task, that task is now incomplete.
+
+Format: `unmark ID`
+
+Example:
+ - `unmark 1`
+
+```
+expected output
+```
+
+## Deleting Tasks: `delete`
+
+Deletes a specified task from the list.
+
+Format: `delete ID`
+
+Example:
+ - `delete 3`
+
+```
+expected output
+```
+
+## Finding Tasks: `find`
+
+Searches the current list of tasks for tasks that contain a specified string.
+
+Format: `find SEARCH_STRING`
+
+Example:
+ - `find Submit`
+
+```
+expected output
+```
+
+## Show Upcoming Tasks: `upcoming`
+
+Shows all Deadline tasks that are due within a week, as well as Event tasks that start within a week.
+
+Format: `upcoming`
+
+```
+expected output
+```
