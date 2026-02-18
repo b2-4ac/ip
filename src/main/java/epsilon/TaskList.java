@@ -103,13 +103,8 @@ public class TaskList {
      *
      * @param idx Integer index indicating which task to mark as complete.
      */
-    public String markTask(int idx) {
-        try {
-            this.tasks.get(idx).mark();
-            return "Task marked as completed. Good Job!";
-        } catch (IndexOutOfBoundsException e) {
-            return "Task not found in list :(";
-        }
+    public void markTask(int idx) throws IndexOutOfBoundsException {
+        this.tasks.get(idx).mark();
     }
 
     /**
@@ -118,13 +113,8 @@ public class TaskList {
      *
      * @param idx Integer index indicating which task to mark as incomplete
      */
-    public String unmarkTask(int idx) {
-        try {
-            this.tasks.get(idx).unmark();
-            return "Task has been reset. Get it done soon!";
-        } catch (IndexOutOfBoundsException e) {
-            return "Task not found in list :(";
-        }
+    public void unmarkTask(int idx) throws IndexOutOfBoundsException {
+        this.tasks.get(idx).unmark();
     }
 
     /**
@@ -133,13 +123,8 @@ public class TaskList {
      *
      * @param idx Integer index indicating which task to delete.
      */
-    public String deleteTask(int idx) {
-        try {
-            this.tasks.remove(idx);
-            return "Task removed successfully.";
-        } catch (IndexOutOfBoundsException e) {
-            return "Task not found in list :(";
-        }
+    public void deleteTask(int idx) throws IndexOutOfBoundsException {
+        this.tasks.remove(idx);
     }
 
     /**
@@ -151,32 +136,25 @@ public class TaskList {
      * @param title Required title of the task to be added.
      * @param dates String of dates (from 0-2) depending on the type
      *     of task to be created.
-     * @return Confirmation string if a task has been added successfully.
-     *     Returns a message informing the user of an error if bad
-     *     input is detected.
+     * @return Returns true if a task has been added successfully.
+     *     Returns false if bad input is detected.
      */
-    public String addTask(String title, String... dates) {
-        try {
-            switch (dates.length) {
-            case 0:
-                Todo newTodo = new Todo(title);
-                this.tasks.add(newTodo);
-                return "Added new To Do: " + title;
-            case 1:
-                Deadline newDeadline = new Deadline(title, dates[0]);
-                this.tasks.add(newDeadline);
-                return "Added new Deadline: " + title;
-            case 2:
-                Event newEvent = new Event(title, dates[0], dates[1]);
-                this.tasks.add(newEvent);
-                return "Added new Event: " + title;
-            default:
-                return "Error: Too Many Parameters";
-            }
-        } catch (MissingInputException e) {
-            return "Oops! Some information is missing :(";
-        } catch (DateTimeParseException e) {
-            return "Please enter the deadline in a yyyy-mm-dd format";
+    public boolean addTask(String title, String... dates) throws MissingInputException, DateTimeParseException {
+        switch (dates.length) {
+        case 0:
+            Todo newTodo = new Todo(title);
+            this.tasks.add(newTodo);
+            return true;
+        case 1:
+            Deadline newDeadline = new Deadline(title, dates[0]);
+            this.tasks.add(newDeadline);
+            return true;
+        case 2:
+            Event newEvent = new Event(title, dates[0], dates[1]);
+            this.tasks.add(newEvent);
+            return true;
+        default:
+            return false;
         }
     }
 

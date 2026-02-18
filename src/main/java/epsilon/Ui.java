@@ -34,14 +34,9 @@ public class Ui {
      */
     public String showList(List<Task> list) {
         StringBuilder sb = new StringBuilder();
-
-        if (list.size() == 0) {
-            return "No tasks found.";
-        } else {
-            for (int i = 0; i < list.size(); i++) {
-                sb.append((i + 1) + ". " + list.get(i) + "\n");
-            }
-            return sb.toString();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append((i + 1) + ". " + list.get(i) + "\n");
         }
+        return sb.toString();
     }
 }

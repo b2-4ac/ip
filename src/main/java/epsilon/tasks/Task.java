@@ -44,14 +44,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark the current task as complete.
+     * Marks the current task as complete.
      */
     public void mark() {
         this.isCompleted = true;
     }
 
     /**
-     * Mark the current task as incomplete.
+     * Marks the current task as incomplete.
      */
     public void unmark() {
         this.isCompleted = false;
