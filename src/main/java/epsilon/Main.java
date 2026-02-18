@@ -25,6 +25,7 @@ public class Main extends Application {
             stage.setOnCloseRequest(event -> {
                 epsilon.saveAndExit();
             });
+            stage.setTitle("Epsilon");
             fxmlLoader.<MainWindow>getController().setEpsilon(epsilon); // inject the Epsilon instance
             stage.show();
         } catch (IOException e) {
