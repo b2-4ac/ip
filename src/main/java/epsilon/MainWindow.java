@@ -1,5 +1,7 @@
 package epsilon;
 
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -38,17 +40,28 @@ public class MainWindow extends AnchorPane {
 
     private void showGreeting() {
         String greeting = epsilon.greet();
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greeting, dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getEpsilonDialog(greeting, dukeImage));
     }
 
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = epsilon.getResponse(input);
+        List<String> response = epsilon.getResponse(input);
+        String resStatus = response.get(0);
+        String resMessage = response.get(1);
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(response, dukeImage)
+            DialogBox.getUserDialog(input, userImage)
         );
+
+        if (resStatus.equals("Error")) {
+            dialogContainer.getChildren().addAll(
+                DialogBox.getEpsilonError(resMessage, dukeImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                DialogBox.getEpsilonDialog(resMessage, dukeImage)
+            );
+        }
         userInput.clear();
     }
 }

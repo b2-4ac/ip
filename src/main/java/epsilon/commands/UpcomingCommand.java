@@ -6,6 +6,7 @@ import java.util.List;
 import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
+import epsilon.response.Response;
 import epsilon.tasks.Task;
 
 /**
@@ -14,9 +15,12 @@ import epsilon.tasks.Task;
  */
 public class UpcomingCommand extends Command {
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) {
+    public List<String> execute(TaskList list, Ui ui, Storage storage) {
         LocalDate threshhold = LocalDate.now().plusWeeks(1);
         List<Task> upcomingTasks = list.getTasksBefore(threshhold);
-        return ui.showList(upcomingTasks);
+        if (upcomingTasks.size() == 0) {
+            return Response.success("No Upcoming Tasks!");
+        }
+        return Response.success(ui.showList(upcomingTasks));
     }
 }

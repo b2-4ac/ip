@@ -1,10 +1,12 @@
 package epsilon.commands;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
+import epsilon.response.Response;
 import epsilon.tasks.Task;
 
 /**
@@ -19,8 +21,11 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList list, Ui ui, Storage storage) {
-        ArrayList<Task> result = list.findTasks(this.searchString);
-        return ui.showList(result);
+    public List<String> execute(TaskList list, Ui ui, Storage storage) {
+        ArrayList<Task> searchResult = list.findTasks(this.searchString);
+        if (searchResult.size() == 0) {
+            return Response.error("No tasks found.");
+        }
+        return Response.success(ui.showList(searchResult));
     }
 }
