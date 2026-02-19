@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     private String searchString;
 
     public FindCommand(String searchString) {
-        this.searchString = searchString;
+        this.searchString = searchString.toLowerCase();
     }
 
     @Override

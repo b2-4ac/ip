@@ -173,7 +173,7 @@ public class TaskList {
     public ArrayList<Task> findTasks(String searchString) {
         ArrayList<Task> res = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getTitle().contains(searchString)) {
+            if (task.getTitle().toLowerCase().contains(searchString)) {
                 res.add(task);
             }
         }

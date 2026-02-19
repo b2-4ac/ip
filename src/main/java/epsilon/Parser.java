@@ -28,6 +28,10 @@ public class Parser {
      *     for execution.
      */
     public Command parse(String cmd) {
+        if (cmd.contains("|")) {
+            return new ErrorCommand("Invalid Character Detected. Please avoid using \"|\".");
+        }
+        
         String[] cmdSplit = cmd.split(" ", 2);
         String inst = cmdSplit[0];
         String rawParams = cmdSplit.length > 1 ? cmdSplit[1] : "";
