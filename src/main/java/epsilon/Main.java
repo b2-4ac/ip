@@ -26,6 +26,8 @@ public class Main extends Application {
                 epsilon.saveAndExit();
             });
             stage.setTitle("Epsilon");
+            stage.setMinWidth(400);
+            stage.setMinHeight(650);
             fxmlLoader.<MainWindow>getController().setEpsilon(epsilon); // inject the Epsilon instance
             stage.show();
         } catch (IOException e) {
