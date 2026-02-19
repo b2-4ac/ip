@@ -7,6 +7,7 @@ import java.util.List;
 import epsilon.Storage;
 import epsilon.TaskList;
 import epsilon.Ui;
+import epsilon.exceptions.InvalidEventDateException;
 import epsilon.exceptions.MissingInputException;
 import epsilon.response.Response;
 
@@ -46,13 +47,16 @@ public class AddCommand extends Command {
         } catch (MissingInputException e) {
             return Response.error("Oops! Some information is missing! :(");
         } catch (DateTimeParseException e) {
-            return Response.error("Please enter the dates in YYYY-MM-DD format!");
+            return Response.error("Invalid Date Detected!");
+        } catch (InvalidEventDateException e) {
+            return Response.error("Event End date cannot be before Start date!");
         }
     }
 
     /* -------------------- Handlers for each task type -------------------- */
 
-    private List<String> handleTodo(TaskList list) throws MissingInputException {
+    private List<String> handleTodo(TaskList list)
+            throws MissingInputException, DateTimeParseException, InvalidEventDateException {
         assert params.size() == 1 : "Todo requires exactly 1 parameter";
         String title = params.get(0);
 
@@ -61,7 +65,8 @@ public class AddCommand extends Command {
                 : Response.error("Too Many Parameters!");
     }
 
-    private List<String> handleDeadline(TaskList list) throws MissingInputException {
+    private List<String> handleDeadline(TaskList list)
+            throws MissingInputException, DateTimeParseException, InvalidEventDateException {
         assert params.size() == 2 : "Deadline requires a title and a deadline";
         String title = params.get(0);
         String deadline = params.get(1);
@@ -71,7 +76,8 @@ public class AddCommand extends Command {
                 : Response.error("Too Many Parameters!");
     }
 
-    private List<String> handleEvent(TaskList list) throws MissingInputException {
+    private List<String> handleEvent(TaskList list)
+            throws MissingInputException, DateTimeParseException, InvalidEventDateException {
         assert params.size() == 3 : "Event requires title, start date, end date";
         String title = params.get(0);
         String start = params.get(1);
