@@ -8,9 +8,11 @@ import epsilon.commands.AddCommand;
 import epsilon.commands.DeleteCommand;
 import epsilon.commands.ErrorCommand;
 import epsilon.commands.ExitCommand;
+import epsilon.commands.FindCommand;
 import epsilon.commands.ListCommand;
 import epsilon.commands.MarkCommand;
 import epsilon.commands.UnmarkCommand;
+import epsilon.commands.UpcomingCommand;
 import epsilon.exceptions.MissingInputException;
 
 public class ParserTest {
@@ -25,6 +27,8 @@ public class ParserTest {
         assertInstanceOf(MarkCommand.class, parser.parse("mark 1"));
         assertInstanceOf(UnmarkCommand.class, parser.parse("unmark 1"));
         assertInstanceOf(DeleteCommand.class, parser.parse("delete 1"));
+        assertInstanceOf(FindCommand.class, parser.parse("find submit"));
+        assertInstanceOf(UpcomingCommand.class, parser.parse("upcoming"));
         assertInstanceOf(ExitCommand.class, parser.parse("bye"));
     }
 
@@ -44,6 +48,7 @@ public class ParserTest {
 
         assertInstanceOf(ErrorCommand.class, parser.parse("list 5"));
         assertInstanceOf(ErrorCommand.class, parser.parse("bye forever"));
+        assertInstanceOf(ErrorCommand.class, parser.parse("upcoming later"));
     }
 
     @Test

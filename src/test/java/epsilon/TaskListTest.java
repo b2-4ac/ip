@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import epsilon.exceptions.InvalidEventDateException;
 import epsilon.exceptions.MissingInputException;
 import epsilon.tasks.Task;
 
@@ -53,6 +54,10 @@ public class TaskListTest {
         assertThrows(MissingInputException.class, () -> {
             list.addTask(" ");
         });
+
+        assertThrows(MissingInputException.class, () -> {
+            list.addTask(" ", "2026-02-25");
+        });
     }
 
     @Test
@@ -65,7 +70,15 @@ public class TaskListTest {
         });
 
         assertThrows(DateTimeParseException.class, () -> {
+            list.addTask("New Deadline", "2026-02-31");
+        });
+
+        assertThrows(DateTimeParseException.class, () -> {
             list.addTask("New Event", "3/1/26", "19/2/26");
+        });
+
+        assertThrows(InvalidEventDateException.class, () -> {
+            list.addTask("New Event", "2026-02-20", "2026-02-19");
         });
     }
 }
