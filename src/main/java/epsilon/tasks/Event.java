@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import epsilon.exceptions.InvalidEventDateException;
 import epsilon.exceptions.MissingInputException;
 
 /**
@@ -23,13 +24,20 @@ public class Event extends TimedTask {
      * @throws MissingInputException Throws exception if title, start or end are blank.
      * @throws DateTimeParseException Throws exception if start or end are in the wrong format.
      */
-    public Event(String title, String start, String end) throws MissingInputException, DateTimeParseException {
+    public Event(String title, String start, String end)
+            throws MissingInputException, DateTimeParseException, InvalidEventDateException {
         super(title);
         if (start.trim().equals("") || end.trim().equals("")) {
             throw new MissingInputException();
         }
-        this.start = LocalDate.parse(start.trim());
-        this.end = LocalDate.parse(end.trim());
+        LocalDate s = LocalDate.parse(start.trim());
+        LocalDate e = LocalDate.parse(end.trim());
+
+        if (e.isBefore(s)) {
+            throw new InvalidEventDateException();
+        }
+        this.start = s;
+        this.end = e;
     }
 
     @Override

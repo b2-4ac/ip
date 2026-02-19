@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import epsilon.exceptions.InvalidEventDateException;
 import epsilon.exceptions.MissingInputException;
 import epsilon.exceptions.UnknownInputException;
 import epsilon.tasks.Deadline;
@@ -40,10 +41,13 @@ public class TaskList {
             System.out.println("Error in Data: Unrecognised Input Detected");
         } catch (DateTimeParseException e) {
             System.out.println("Error in Data: Invalid Date");
+        } catch (InvalidEventDateException e) {
+            System.out.println("Error in Data: Event end date occurs before start date");
         }
     }
 
-    private Task parseTask(String rawTask) throws MissingInputException, UnknownInputException {
+    private Task parseTask(String rawTask)
+            throws MissingInputException, UnknownInputException, InvalidEventDateException {
         String[] split = rawTask.split("\\|");
 
         String type = split[0].trim();
@@ -139,7 +143,8 @@ public class TaskList {
      * @return Returns true if a task has been added successfully.
      *     Returns false if bad input is detected.
      */
-    public boolean addTask(String title, String... dates) throws MissingInputException, DateTimeParseException {
+    public boolean addTask(String title, String... dates)
+            throws MissingInputException, DateTimeParseException, InvalidEventDateException {
         switch (dates.length) {
         case 0:
             Todo newTodo = new Todo(title);
