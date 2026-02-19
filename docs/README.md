@@ -160,3 +160,20 @@ Format: `bye`
 | Delete | `delete ID` | `delete 3`|
 | Find | `find SEARCH_STRING` | `find Submit` |
 | Upcoming | `upcoming` | |
+
+## Additional Features
+
+Some additional functionality that Epsilon provides
+
+### Upcoming Task Reminders
+
+Upon launching the application, Epsilon will check for any Deadlines or Events that are occuring within the next 7 days and alert you in it's greeting message. Similar to how the `upcoming` function works
+
+```
+Hello! I'm Epsilon
+Your trusty task companion!
+---
+Here are some of your upcoming tasks:
+1. /D/[X] Submit Project (by: Feb 20 2026)
+2. /D/[ ] Return Book (by: Feb 22 2026)
+```
